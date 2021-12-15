@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Motivos</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="https://liwru.s3.amazonaws.com/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://liwru.s3.amazonaws.com/css/sb-admin-2.css" rel="stylesheet">
+  <!-- Custom styles for this page -->
+  <link href="https://liwru.s3.amazonaws.com/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+
+<body id="page-top">
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <div th:replace="/fragments/sidebar :: sidebar"></div>
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <div th:replace="/fragments/topbar :: topbar"></div>
+      <!-- Begin Page Content -->
+      <div id="sede" class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="card-body" style="text-align: right">
+          <a th:href="@{/ajustes/motivos/create}"  class="btn btn-success">Agregar</a>
+          <!--                    <button type="button" class="btn btn-primary">Editar</button>-->
+          <!--                    <button type="button" class="btn btn-danger">Eliminar</button>-->
+        </div>
+
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4" th:switch="usuarios">
+          <div th:case="*">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">LISTA DE MOTIVOS</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th>Codigo</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each=" moti : ${motivos} ">
+                    <th:block th:switch="${moti.estadoMotivo}">
+                      <td class="border-left-danger" th:case="'0'" th:text="${moti.idMotivo}"></td>
+                      <td class="border-left-success" th:case="'1'" th:text="${moti.idMotivo}"></td>
+                    </th:block>
+
+                    <td th:text="${moti.estadoDescripcion}"></td>
+                    <td th:switch="${moti.estadoMotivo}">
+                      <div th:case="1">
+                        ACTIVO
+                      </div>
+                      <div th:case="0">
+                        INACTIVO
+                      </div>
+                    </td>
+
+                    <div th:switch="${moti.estadoMotivo}">
+                      <div th:case="1">
+                        <td><a th:href="@{/ajustes/editar/motivo/{id} (id = ${moti.idMotivo}) }" class="btn btn-primary btn-circle">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                          <a th:href="@{desactivarMotivos/{id} (id = ${moti.idMotivo}) }"
+                             class="btn btn-danger btn-circle">
+                            <i class="fas fa-trash"></i>
+                          </a>
+                        </td>
+                      </div>
+                      <div th:case="0">
+                        <td><a th:href="@{/ajustes/editar/motivo/{id} (id = ${moti.idMotivo}) }" class="btn btn-primary btn-circle">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                          <a th:href="@{activarMotivos/{id} (id = ${moti.idMotivo}) }"
+                             class="btn btn-success btn-circle">
+                            <i class="fas fa-trash-restore"></i>
+                          </a>
+                        </td>
+                      </div>
+                    </div>
+                  </tr>
+
+                  <tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+    <div th:replace="/fragments/footer :: footer"></div>
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- Core plugin JavaScript-->
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- Custom scripts for all pages-->
+<script th:src="@{https://liwru.s3.amazonaws.com/js/sb-admin-2.min.js}"></script>
+<!-- Page level plugins -->
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Page level custom scripts -->
+<script th:src="@{https://liwru.s3.amazonaws.com/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/js/demo/chart-pie-demo.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/js/demo/chart-bar-demo.js}"></script>
+<script th:src="@{https://liwru.s3.amazonaws.com/js/demo/datatables-demo.js}"></script>
+
+</body>
+
+</html>
